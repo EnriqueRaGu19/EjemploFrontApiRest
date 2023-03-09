@@ -1,0 +1,19 @@
+<div class="col-12">
+    <div class="col-4 col-offset-4 flex-wrap container-login p-5">
+        <div style="text-align: center;">
+            <p>Inicia Sesión</p>
+        </div>
+        <form [formGroup]="formLogin">
+            <div class="col-12">
+                <input type="text" pInputText formControlName="correo" placeholder="Correo"/>
+            </div>
+            <div class="col-12">
+                <input type="password" pInputText formControlName="clave" placeholder="Contraseña"/>
+            </div>
+        </form>
+        <div class="col-12">
+            <button pButton type="button" label="Iniciar Sesión" (click)="login()" [disabled]="formLogin.invalid" ></button>
+        </div>
+        <p class="cursor-pointer" (click)="register()">Registrarme</p>
+    </div>
+</div>

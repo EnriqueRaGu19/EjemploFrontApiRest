@@ -1,0 +1,64 @@
+<div class="col-12 flex justify-content-end">
+    <button pButton type="button" label="Cerrar Sesión" class="p-button-secondary mb-2" (click)="logOut()"></button>
+    <button pButton type="button" label="Get" class="p-button-secondary mb-2" (click)="get()"></button>
+</div>
+<p-table [value]="products">
+    <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+            <button pButton type="button" label="Agregar" (click)="showDialogProduct({}, 'create')"></button>
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Id</th>
+            <th>Nombre</th>
+            <th>Descripcion</th>
+            <th>Cantidad</th>
+            <th>Opciones</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+        <tr>
+            <td>{{product.id}}</td>
+            <td>{{product.name}}</td>
+            <td>{{product.description}}</td>
+            <td>{{product.quantity}}</td>
+            <td>
+                <i class="pi pi-eye" style="font-size: 1.3rem; margin-right: 1rem;" (click)="showDialogProduct(product, '')"></i>
+                <i class="pi pi-pencil" style="font-size: 1rem; margin-right: 1rem;" (click)="showDialogProduct(product, 'edit')"></i>
+                <i class="pi pi-trash" style="font-size: 1rem" (click)="confirm(product.id)"></i>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<p-dialog [(visible)]="displayDialogProduct" [modal]="true" [style]="{width: '30vw'}">
+    <div class="col-12">
+        <p class="mt-0 mb-5" style="text-align: center;" *ngIf="isEdit == 'create'">Agregar Nuevo Producto</p>
+        <p class="mt-0 mb-5" style="text-align: center;" *ngIf="isEdit == 'edit'">Editar Producto</p>
+        <p class="mt-0 mb-5" style="text-align: center;" *ngIf="isEdit == ''">Visualizar</p>
+
+        <form [formGroup]="formGroup">
+            <div class="col-12">
+                <input type="text" pInputText formControlName="name"/>
+            </div>
+            <div class="col-12">
+                <input type="text" pInputText formControlName="description"/>
+            </div>
+            <div class="col-12">
+                <p-inputNumber id="quantity" formControlName="quantity"></p-inputNumber>
+                <!-- <input type="number" formControlName="quantity"> -->
+            </div>
+            <div class="col-12" *ngIf="isEdit == 'edit' || isEdit == 'create'">
+                <button pButton type="button" 
+                    label="{{isEdit == 'edit'? 'Editar' : 'Guardar'}}" 
+                    (click)="save(isEdit)"
+                    [disabled]="formGroup.invalid"
+                >
+                </button>
+            </div>
+        </form>
+    </div>
+</p-dialog>
+
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>

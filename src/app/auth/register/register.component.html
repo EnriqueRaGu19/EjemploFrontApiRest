@@ -1,0 +1,26 @@
+<div class="col-12">
+    <div class="col-4 col-offset-4 flex-wrap container-register">
+        <div style="text-align: center;">
+            <p>Registrarme</p>
+        </div>
+        <form [formGroup]="formRegister">
+            <div class="col-12">
+                <input type="text" pInputText formControlName="nombre" placeholder="Nombre"/>
+            </div>
+            <div class="col-12">
+                <input type="text" pInputText formControlName="apellido" placeholder="Apellido"/>
+            </div>
+            <div class="col-12">
+                <input type="text" pInputText formControlName="correo" placeholder="Correo"/>
+            </div>
+            <div class="col-12">
+                <input type="password" pInputText formControlName="clave" placeholder="Contraseña"/>
+            </div> 
+        </form>
+        <div class="col-12">
+            <button pButton type="button" label="Registrarme" 
+                    [disabled]="formRegister.invalid" 
+                    (click)="register()"></button>
+        </div>
+    </div>
+</div>
